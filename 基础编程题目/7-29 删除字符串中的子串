@@ -1,0 +1,36 @@
+#define _CRT_SECURE_NO_WARNINGS
+//
+//输入2个字符串S1和S2，要求删除字符串S1中出现的所有子串S2，即结果字符串中不能包含S2。
+//
+//输入格式：
+//输入在2行中分别给出不超过80个字符长度的、以回车结束的2个非空字符串，对应S1和S2。
+//
+//输出格式：
+//在一行中输出删除字符串S1中出现的所有子串S2后的结果字符串。
+//
+//输入样例：
+//Tomcat is a male ccatat
+//cat
+//输出样例：
+//Tom is a male
+
+
+
+#include <stdio.h>
+#include <string.h>
+#define MAX 100
+int main(void)
+{
+    char str1[MAX], str2[MAX];
+    gets(str1);//Tomcat is a male ccatat
+    gets(str2);//cat
+    char str3[MAX], * p;//str3放重复子串后面的字符串，p放重复子串的地址
+    while ((p = strstr(str1, str2)) != NULL)//有重复子串
+    {
+        strcpy(str3, p + strlen(str2));//存
+        *p = '\0';//断
+        strcat(str1, str3);//粘
+    }
+    puts(str1);//输
+    return 0;
+}
