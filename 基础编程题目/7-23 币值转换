@@ -1,0 +1,67 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+//输入一个整数（位数不超过9位）代表一个人民币值（单位为元），请转换成财务要求的大写中文格式。
+//如23108元，转换后变成“贰万叁仟壹百零捌”元。
+//为了简化输出，用小写英文字母a - j顺序代表大写数字0 - 9，用S、B、Q、W、Y分别代表拾、百、仟、万、亿。
+//于是23108元应被转换输出为“cWdQbBai”元。
+//
+//输入格式：
+//输入在一行中给出一个不超过9位的非负整数。
+//
+//输出格式：
+//在一行中输出转换后的结果。注意“零”的用法必须符合中文习惯。
+//
+//输入样例1：
+//813227345
+//输出样例1：
+//iYbQdBcScWhQdBeSf
+//输入样例2：
+//6900
+//输出样例2：
+//gQjB
+
+#include<stdio.h>
+int main()
+{
+	int money = 0;
+	scanf("%d", &money);
+	int k = 0, a = 0, b = 0, c = 0;
+	
+	char num[10] = { 'a','b','c','d','e','f','g','h','i','j' };
+	char unit[10] = { 0,0,'S','B','Q','W','S','B','Q','Y' };
+	char ret[17];
+
+	if (money == 0)
+	{
+		printf("a");
+	}
+
+	while (money != 0)
+	{
+		b = money % 10;
+		money /= 10;
+		a++;
+
+		if (b)
+		{
+			if (a > 1)
+				ret[k++] = unit[a];
+			ret[k++] = num[b];
+		}
+		else
+		{
+			if (a == 5)
+				ret[k++] = unit[a];
+			if (c != 0 && a != 4 && a != 1)
+				ret[k++] = num[b];
+		}
+
+		c = b;
+
+	}
+
+	for (int i = k - 1; i >= 0; i--)
+		printf("%c", ret[i]);
+
+	return 0;
+}
