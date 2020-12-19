@@ -1,0 +1,68 @@
+#include<stdio.h>
+int main()
+{
+	int T = 0;//总时间
+	scanf("%d", &T);
+	int Tortoise = 0, Rabbit = 0;
+	int T_time = 0, R_time = 0;//休息时间
+
+	for (T_time = 1; T_time <= T; T_time++)//以乌龟的时间作为对象研究全程
+	{
+		if (R_time == 0)//兔子不休息
+			Rabbit += 9;//跑9米
+		if (R_time != 0)
+			R_time--;//休息时间的消耗
+		if (T_time % 10 == 0 && R_time == 0 && Rabbit > Tortoise)//兔子回头看和
+			R_time = 30;
+		Tortoise += 3;//乌龟每分钟跑3米
+	}
+	if (Tortoise > Rabbit)
+		printf("@_@ %d\n", Tortoise);
+	if (Tortoise < Rabbit)
+		printf("^ _ ^ %d\n", Rabbit);
+	if (Tortoise == Rabbit)
+		printf("-_- %d\n", Rabbit);
+	return 0;
+}
+
+#include<stdio.h>
+int main()
+{
+    int T;//总时间
+    scanf("%d", &T);
+    int t = 0;//耗费的时间
+    int Rabbit = 0, Tortoise = 0;//路程
+
+    do {
+        if ((t % 10 == 0) && (Rabbit > Tortoise)) 
+        { // 兔子休息 
+            if (t < T - 30) //30分钟兔子在睡觉
+            {
+                Tortoise += 30 * 3;
+                t += 30;
+            }
+            else //兔子睡觉乌龟赢
+            {
+                Tortoise += (T - t) * 3;
+                break;
+            }
+        }
+        t++;        // 开始记时！ 
+        Rabbit += 9;  // 兔子跑！ 
+        Tortoise += 3; // 乌龟跑！ 
+    } while (t != T);
+
+    if (Rabbit > Tortoise) 
+    {
+        printf("^_^ %d\n", Rabbit);
+    }
+    else if (Rabbit < Tortoise) 
+    {
+        printf("@_@ %d\n", Tortoise);
+    }
+    else 
+    {
+        printf("-_- %d\n", Rabbit);
+    }
+    return 0;
+}
