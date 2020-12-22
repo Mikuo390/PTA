@@ -1,0 +1,53 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+//本题要求编写程序，计算两个有理数的和。
+//
+//输入格式：
+//输入在一行中按照a1 / b1 ,a2 / b2的格式给出两个分数形式的有理数，其中分子和分母全是整形范围内的正整数。
+//
+//输出格式：
+//在一行中按照a / b的格式输出两个有理数的和。
+//注意必须是该有理数的最简分数形式，若分母为1，则只输出分子。
+//
+//输入样例1：
+//1 / 3 1 / 6
+//输出样例1：
+//1 / 2
+//输入样例2：
+//4 / 3 2 / 3
+//输出样例2：
+//2
+
+//int GCD(int n, int m)//计算n和m的最大公约数
+//{
+//	if (m <= n && m == 0)
+//		return n;
+//	else if (n < m)
+//		return GCD(m, n);
+//	else
+//		return GCD(m, n % m);
+//}
+#include<stdio.h>//gcd递归函数去最大公约数，通分后相加后化简即可
+int gcd(int fz, int fm)
+{
+	return fz % fm ? gcd(fm, fz % fm) : fm;
+}
+
+int main()
+{
+	int a1, a2, b1, b2;
+	scanf("%d/%d %d/%d", &a1, &a2, &b1, &b2);//1/3 1/6
+	
+	int lcm = a2 * b2 / gcd(a2, b2);//求最小公倍数
+	//3 * 6 / 3  =  6
+	int sum = lcm / a2 * a1 + lcm / b2 * b1;
+	//6/3+6/1*6=2+1=3
+	int pr = lcm / gcd(lcm, sum);//商
+	//6/3=2
+	if (pr == 1)
+		printf("%d\n", sum / gcd(lcm, sum));
+	else
+		printf("%d/%d\n", sum / gcd(lcm, sum), pr);
+						//3 / 3,2
+}
+
