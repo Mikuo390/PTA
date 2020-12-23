@@ -1,0 +1,102 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+//将一个正整数N分解成几个正整数相加，可以有多种分解方法，
+//例如7 = 6 + 1，7 = 5 + 2，7 = 5 + 1 + 1，…。
+//编程求出正整数N的所有整数分解式子。
+//
+//输入格式：
+//每个输入包含一个测试用例，即正整数N(0 < N≤30)。
+//
+//输出格式：
+//按递增顺序输出N的所有整数分解式子。递增顺序是指：对于两个分解序列N
+//
+//序列之前输出。每个式子由小到大相加，式子间用分号隔开，且每输出4个式子后换行。
+//
+//输入样例：
+//7
+//输出样例：
+//7 = 1 + 1 + 1 + 1 + 1 + 1 + 1; 7 = 1 + 1 + 1 + 1 + 1 + 2; 7 = 1 + 1 + 1 + 1 + 3; 7 = 1 + 1 + 1 + 2 + 2
+//7 = 1 + 1 + 1 + 4; 7 = 1 + 1 + 2 + 3; 7 = 1 + 1 + 5; 7 = 1 + 2 + 2 + 2
+//7 = 1 + 2 + 4; 7 = 1 + 3 + 3; 7 = 1 + 6; 7 = 2 + 2 + 3
+//7 = 2 + 5; 7 = 3 + 4; 7 = 7
+
+
+
+//#include<stdio.h>
+//int book[35];
+//int nowsum, cnt, ind;
+//void dfs(int sum, int m)
+//{
+//	int i;
+//	if (sum == nowsum)
+//	{
+//		printf("%d=%d", sum, book[1]);
+//		for (i = 2; i < ind; i++)
+//			printf("+%d", book[i]);
+//		if (ind == 2 || cnt % 4 == 0)
+//			putchar('\n');
+//		else
+//			putchar(';');
+//		cnt++;
+//		return;
+//	}
+//	for (i = m; i <= sum - nowsum; i++)
+//	{
+//		nowsum += i;
+//		book[ind++] = i;
+//		dfs(sum, i);
+//		ind--;
+//		nowsum -= i;
+//	}
+//}
+//int main()
+//{
+//	int sum;
+//	ind = cnt = 1;
+//	scanf("%d", &sum);
+//	dfs(sum, 1);
+//	return 0;
+//}
+
+
+#include<stdio.h>
+#define MAX 1000
+int count = 0, geshu, arr[MAX];
+int n;
+void search(int remain, int start, int fen) 
+{   //remain 剩下的，start很重要（必须理解），fen 就是写入数组个数 
+	if (remain == 0) 
+	{
+		count++;
+		if (count % 4 != 1)
+			printf(";");
+
+		printf("%d=%d", n, arr[0]);
+
+		for (int j = 1; j < fen; j++) 
+		{
+			printf("+%d", arr[j]);
+		}
+		if (count % 4 == 0) 
+			printf("\n");
+	}
+	else 
+	{
+		for (int j = start; j <= remain; j++) 
+		{   
+			arr[fen] = j;
+			search(remain - j, j, fen + 1); 
+		}
+	}
+}
+
+int main() 
+{
+	int fen = 0;
+	
+	scanf("%d", &n);
+	int remain = n;
+	search(remain, 1, fen);
+
+	return 0;
+}
